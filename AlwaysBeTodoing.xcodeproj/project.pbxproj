@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6055BA72245F128D00A112D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055BA71245F128D00A112D2 /* AppDelegate.swift */; };
 		6055BA74245F128D00A112D2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055BA73245F128D00A112D2 /* SceneDelegate.swift */; };
-		6055BA76245F128D00A112D2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055BA75245F128D00A112D2 /* ViewController.swift */; };
+		6055BA76245F128D00A112D2 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6055BA75245F128D00A112D2 /* TodoListViewController.swift */; };
 		6055BA79245F128D00A112D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6055BA77245F128D00A112D2 /* Main.storyboard */; };
 		6055BA7C245F128D00A112D2 /* AlwaysBeTodoing.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6055BA7A245F128D00A112D2 /* AlwaysBeTodoing.xcdatamodeld */; };
 		6055BA7E245F128F00A112D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6055BA7D245F128F00A112D2 /* Assets.xcassets */; };
@@ -39,12 +39,12 @@
 		6055BA6E245F128D00A112D2 /* AlwaysBeTodoing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlwaysBeTodoing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6055BA71245F128D00A112D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6055BA73245F128D00A112D2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6055BA75245F128D00A112D2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6055BA75245F128D00A112D2 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		6055BA78245F128D00A112D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6055BA7B245F128D00A112D2 /* AlwaysBeTodoing.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AlwaysBeTodoing.xcdatamodel; sourceTree = "<group>"; };
 		6055BA7D245F128F00A112D2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6055BA80245F128F00A112D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		6055BA82245F128F00A112D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6055BA82245F128F00A112D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = /Users/jeremyfleshman/dev/AlwaysBeTodoing/AlwaysBeTodoing/Resources/Info.plist; sourceTree = "<absolute>"; };
 		6055BA87245F128F00A112D2 /* AlwaysBeTodoingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AlwaysBeTodoingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6055BA8B245F128F00A112D2 /* AlwaysBeTodoingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlwaysBeTodoingTests.swift; sourceTree = "<group>"; };
 		6055BA8D245F128F00A112D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -101,14 +101,12 @@
 		6055BA70245F128D00A112D2 /* AlwaysBeTodoing */ = {
 			isa = PBXGroup;
 			children = (
-				6055BA71245F128D00A112D2 /* AppDelegate.swift */,
-				6055BA73245F128D00A112D2 /* SceneDelegate.swift */,
-				6055BA75245F128D00A112D2 /* ViewController.swift */,
-				6055BA77245F128D00A112D2 /* Main.storyboard */,
-				6055BA7D245F128F00A112D2 /* Assets.xcassets */,
-				6055BA7F245F128F00A112D2 /* LaunchScreen.storyboard */,
-				6055BA82245F128F00A112D2 /* Info.plist */,
-				6055BA7A245F128D00A112D2 /* AlwaysBeTodoing.xcdatamodeld */,
+				60CD475824608C7B00EE5F24 /* Storyboards */,
+				60CD475724608C5B00EE5F24 /* AppDelegates */,
+				60CD475624608C3800EE5F24 /* Resources */,
+				60CD475524608C2B00EE5F24 /* DataModels */,
+				60CD475424608C2400EE5F24 /* Views */,
+				6055BAA4245F969000A112D2 /* ViewControllers */,
 			);
 			path = AlwaysBeTodoing;
 			sourceTree = "<group>";
@@ -129,6 +127,56 @@
 				6055BA98245F128F00A112D2 /* Info.plist */,
 			);
 			path = AlwaysBeTodoingUITests;
+			sourceTree = "<group>";
+		};
+		6055BAA4245F969000A112D2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				6055BA75245F128D00A112D2 /* TodoListViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		60CD475424608C2400EE5F24 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		60CD475524608C2B00EE5F24 /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				6055BA7A245F128D00A112D2 /* AlwaysBeTodoing.xcdatamodeld */,
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
+		60CD475624608C3800EE5F24 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6055BA7D245F128F00A112D2 /* Assets.xcassets */,
+				6055BA82245F128F00A112D2 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		60CD475724608C5B00EE5F24 /* AppDelegates */ = {
+			isa = PBXGroup;
+			children = (
+				6055BA71245F128D00A112D2 /* AppDelegate.swift */,
+				6055BA73245F128D00A112D2 /* SceneDelegate.swift */,
+			);
+			path = AppDelegates;
+			sourceTree = "<group>";
+		};
+		60CD475824608C7B00EE5F24 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6055BA77245F128D00A112D2 /* Main.storyboard */,
+				6055BA7F245F128F00A112D2 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,7 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6055BA7C245F128D00A112D2 /* AlwaysBeTodoing.xcdatamodeld in Sources */,
-				6055BA76245F128D00A112D2 /* ViewController.swift in Sources */,
+				6055BA76245F128D00A112D2 /* TodoListViewController.swift in Sources */,
 				6055BA72245F128D00A112D2 /* AppDelegate.swift in Sources */,
 				6055BA74245F128D00A112D2 /* SceneDelegate.swift in Sources */,
 			);
@@ -440,7 +488,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3C9P7PTK6N;
-				INFOPLIST_FILE = AlwaysBeTodoing/Info.plist;
+				INFOPLIST_FILE = AlwaysBeTodoing/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -458,7 +506,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3C9P7PTK6N;
-				INFOPLIST_FILE = AlwaysBeTodoing/Info.plist;
+				INFOPLIST_FILE = AlwaysBeTodoing/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -7,22 +7,25 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--List of Lists-->
+        <!--Collection of Lists-->
         <scene sceneID="9Pk-FE-vEb">
             <objects>
-                <tableViewController title="List of Lists" id="uOr-vM-Wxg" sceneMemberID="viewController">
+                <tableViewController title="Collection of Lists" id="uOr-vM-Wxg" customClass="ListCollectionViewController" customModule="AlwaysBeTodoing" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="iOt-lG-vMS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Rz8-45-4n5">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="todoListCell" id="Rz8-45-4n5">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Rz8-45-4n5" id="wbc-7A-nal">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="PGf-UQ-XQU"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -31,9 +34,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Select a checklist!" id="xcm-3f-bio"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" id="aWO-h6-FkN"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y2p-z8-VOP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -55,10 +55,10 @@
             </objects>
             <point key="canvasLocation" x="-1855" y="5"/>
         </scene>
-        <!--Checklist-->
+        <!--Todo List-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="Checklist" id="BYZ-38-t0r" customClass="TodoListViewController" customModule="AlwaysBeTodoing" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Todo List" id="BYZ-38-t0r" customClass="TodoListViewController" customModule="AlwaysBeTodoing" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -67,13 +67,42 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="WvQ-d2-iCR">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="todoItemCell" rowHeight="44" id="WvQ-d2-iCR" customClass="TodoItemTableViewCell" customModule="AlwaysBeTodoing" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WvQ-d2-iCR" id="9gW-Rf-fv7">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nl3-xN-3kh">
+                                                    <rect key="frame" x="20" y="11" width="374" height="22"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwC-pb-26i">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Nl3-xN-3kh" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="topMargin" id="4ss-1Q-VXr"/>
+                                                <constraint firstItem="Nl3-xN-3kh" firstAttribute="leading" secondItem="9gW-Rf-fv7" secondAttribute="leadingMargin" id="8p5-ju-qGK"/>
+                                                <constraint firstAttribute="bottom" secondItem="nwC-pb-26i" secondAttribute="bottom" id="Gug-2J-ZRe"/>
+                                                <constraint firstItem="Nl3-xN-3kh" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="topMargin" id="QBW-Jt-41z"/>
+                                                <constraint firstItem="Nl3-xN-3kh" firstAttribute="bottom" secondItem="9gW-Rf-fv7" secondAttribute="bottomMargin" id="YhJ-fh-P2C"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Nl3-xN-3kh" secondAttribute="trailing" id="ieG-oB-MeG"/>
+                                                <constraint firstItem="nwC-pb-26i" firstAttribute="leading" secondItem="9gW-Rf-fv7" secondAttribute="leading" constant="20" id="ifP-dN-anq"/>
+                                                <constraint firstItem="nwC-pb-26i" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="top" id="msT-Fg-R4A"/>
+                                                <constraint firstItem="Nl3-xN-3kh" firstAttribute="bottom" secondItem="9gW-Rf-fv7" secondAttribute="bottomMargin" id="q4g-8l-mse"/>
+                                                <constraint firstAttribute="trailing" secondItem="nwC-pb-26i" secondAttribute="trailing" constant="20" id="vHs-HY-uIk"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="todoItemLabel" destination="Nl3-xN-3kh" id="3QG-9x-0o4"/>
+                                            <outlet property="todoItemTextField" destination="nwC-pb-26i" id="eIJ-ha-mzr"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -87,7 +116,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Checklist" id="GqX-tK-irU"/>
+                    <navigationItem key="navigationItem" title="Todo List" id="GqX-tK-irU"/>
                     <connections>
                         <outlet property="tableView" destination="2Xp-RF-a79" id="yzq-NF-s7H"/>
                     </connections>

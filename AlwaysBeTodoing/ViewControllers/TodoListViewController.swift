@@ -33,7 +33,13 @@ extension TodoListViewController: UITableViewDelegate {
     // Should this be made with a nib or storyboard prototype cell?
       // Should prototype cell be replaced?
         // What are its specific uses?
-  // TODO: disable selection highlighting for tableviewcell
+  func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+    return false
+  }
+
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 44.0
+  }
 }
 
 extension TodoListViewController: UITableViewDataSource {
@@ -42,12 +48,16 @@ extension TodoListViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: "todoItemCell",
+                                             for: indexPath) as! TodoItemTableViewCell
 
     // TODO: Replace this with a custom Checklist item cell
       // how should this look?
-    cell.textLabel?.text = items[indexPath.row].description
+//    cell.textLabel?.text = items[indexPath.row].description
+//    cell.todoItemTextField.text = items[indexPath.row].description
+    cell.todoItemLabel.text = items[indexPath.row].description
 
     return cell
   }
+  
 }

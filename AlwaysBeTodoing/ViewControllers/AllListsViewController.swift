@@ -1,5 +1,5 @@
 //
-//  ListCollectionViewController.swift
+//  AllListsViewController.swift
 //  AlwaysBeTodoing
 //
 //  Created by Jeremy Fleshman on 5/4/20.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class ListCollectionViewController: UIViewController {
+class AllListsViewController: UIViewController {
   // MARK: - Properties
   @IBOutlet weak var addChecklist: UIBarButtonItem!
-  @IBOutlet weak var listCollection: UITableView!
+  @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var editBarButtonItem: UIBarButtonItem!
 
   // MARK: - DataSource
@@ -23,8 +23,8 @@ class ListCollectionViewController: UIViewController {
 
     navigationController?.navigationBar.prefersLargeTitles = true
 
-    listCollection.dataSource = self
-    listCollection.delegate = self
+    tableView.dataSource = self
+    tableView.delegate = self
   }
 
   override func viewWillAppear(_ animated: Bool) {
@@ -40,8 +40,8 @@ class ListCollectionViewController: UIViewController {
     // TODO: Should this be moved to viewWillDisappear?
     //       Need to compare behavior with UITableViewController's cell highlight deselection
     // Manually deselects the list cell when returning to this view
-    if let selectedIndexPath = listCollection.indexPathForSelectedRow {
-      listCollection.deselectRow(at: selectedIndexPath, animated: animated)
+    if let selectedIndexPath = tableView.indexPathForSelectedRow {
+      tableView.deselectRow(at: selectedIndexPath, animated: animated)
     }
   }
 
@@ -50,7 +50,7 @@ class ListCollectionViewController: UIViewController {
     if self.isEditing == false {
       let list = TodoList()
       todoLists.append(list)
-      listCollection.reloadData()
+      tableView.reloadData()
       self.isEditing = true
     }
   }
@@ -61,20 +61,18 @@ class ListCollectionViewController: UIViewController {
 
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    // TODO: Implement prepare(for:sender:)
-    // Get the new view controller using segue.destination.
-    // Pass the selected object to the new view controller.
-
-    // Need to prepare the TodoListVC with the proper "Checklist"
-    print("prepare(for:sender:) called")
-    if let selectedRow = listCollection.indexPathForSelectedRow?.row {
+    guard let selectedRow = tableView.indexPathForSelectedRow?.row else { return }
+    if (segue.identifier == "AllListsVCToTodoListVC") {
+      // TODO: Does a delegate need to be set here to update the data model?
+      let todoListVC = segue.destination as! TodoListViewController
+      todoListVC.todoItems = todoLists[selectedRow].items
       segue.destination.title = todoLists[selectedRow].title
     }
   }
 }
 
 // MARK: - UITableViewDelegate
-extension ListCollectionViewController: UITableViewDelegate {
+extension AllListsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     // TODO: Implement
     // may not be needed as there is a segue in the SB prototype cell
@@ -86,7 +84,7 @@ extension ListCollectionViewController: UITableViewDelegate {
 }
 
 // MARK: - UITableViewDataSource
-extension ListCollectionViewController: UITableViewDataSource {
+extension AllListsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return todoLists.count
   }
@@ -103,11 +101,19 @@ extension ListCollectionViewController: UITableViewDataSource {
 }
 
 // MARK: - TodoListTableViewCellDelegate
-extension ListCollectionViewController: TodoListTableViewCellDelegate {
+extension AllListsViewController: TodoListTableViewCellDelegate {
   func titleSetForTodoList(sender: TodoListTableViewCell, title: String) {
     guard let todoListTitle = sender.todoListLabel.text else { return }
-    guard let index = listCollection.indexPath(for: sender)?.row else { return }
+    guard let index = tableView.indexPath(for: sender)?.row else { return }
 
     todoLists[index].title = todoListTitle
   }
 }
+
+// MARK: TodoListViewControllerDelegate
+extension AllListsViewController: TodoListViewControllerDelegate {
+  func didUpdateTodoItems(sender: TodoListViewController, items: [TodoItem]) {
+    // TODO: Implement
+  }
+}
+

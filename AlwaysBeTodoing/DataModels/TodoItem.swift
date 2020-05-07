@@ -14,7 +14,7 @@ struct TodoItem {
   var checked: Bool
 
   // MARK: Initializers
-  init(_ description: String, isChecked: Bool = false) {
+  init(_ description: String = "", isChecked: Bool = false) {
     self.description = description
     self.checked = isChecked
   }

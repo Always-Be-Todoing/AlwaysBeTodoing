@@ -10,7 +10,7 @@
         <!--Collection of Lists-->
         <scene sceneID="k1S-wJ-6ed">
             <objects>
-                <viewController title="Collection of Lists" id="hG2-sd-leT" customClass="ListCollectionViewController" customModule="AlwaysBeTodoing" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Collection of Lists" id="hG2-sd-leT" customClass="AllListsViewController" customModule="AlwaysBeTodoing" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="beB-h9-8bb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -52,7 +52,7 @@
                                         <connections>
                                             <outlet property="todoListLabel" destination="wjN-6r-mR0" id="T5Y-yu-ifU"/>
                                             <outlet property="todoListTextField" destination="gwS-0d-76A" id="aBo-Ej-613"/>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="k2i-9f-441"/>
+                                            <segue destination="BYZ-38-t0r" kind="show" identifier="AllListsVCToTodoListVC" id="k2i-9f-441"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -78,7 +78,7 @@
                     <connections>
                         <outlet property="addChecklist" destination="ukF-4N-6Rf" id="2Wk-f7-X43"/>
                         <outlet property="editBarButtonItem" destination="jdI-m1-Ayx" id="QKP-O1-mqh"/>
-                        <outlet property="listCollection" destination="XdY-7o-KMb" id="NqY-VG-g51"/>
+                        <outlet property="tableView" destination="XdY-7o-KMb" id="NqY-VG-g51"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oRM-iN-1RS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -121,29 +121,42 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What needs doing?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwC-pb-26i">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
+                                                    <rect key="frame" x="64" y="0.0" width="350" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nl3-xN-3kh">
-                                                    <rect key="frame" x="20" y="11" width="374" height="22"/>
+                                                    <rect key="frame" x="64" y="11" width="330" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NG0-fy-HrD">
+                                                    <rect key="frame" x="20" y="21.666666666666664" width="44" height="1.0000000000000036"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="2he-pm-fgn"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Nl3-xN-3kh" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="topMargin" id="4ss-1Q-VXr"/>
-                                                <constraint firstItem="Nl3-xN-3kh" firstAttribute="leading" secondItem="9gW-Rf-fv7" secondAttribute="leadingMargin" id="8p5-ju-qGK"/>
+                                                <constraint firstAttribute="bottom" secondItem="NG0-fy-HrD" secondAttribute="bottom" constant="20" id="6yb-6n-gRR"/>
                                                 <constraint firstAttribute="bottom" secondItem="nwC-pb-26i" secondAttribute="bottom" id="Gug-2J-ZRe"/>
-                                                <constraint firstItem="Nl3-xN-3kh" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="topMargin" id="QBW-Jt-41z"/>
+                                                <constraint firstItem="nwC-pb-26i" firstAttribute="leading" secondItem="NG0-fy-HrD" secondAttribute="trailing" id="JbY-P0-CHL"/>
+                                                <constraint firstAttribute="trailing" secondItem="nwC-pb-26i" secondAttribute="trailing" id="SQK-us-DCl"/>
+                                                <constraint firstItem="NG0-fy-HrD" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="top" constant="20" id="V5U-As-9qP"/>
+                                                <constraint firstItem="NG0-fy-HrD" firstAttribute="leading" secondItem="9gW-Rf-fv7" secondAttribute="leadingMargin" id="WOw-xk-0OJ"/>
                                                 <constraint firstItem="Nl3-xN-3kh" firstAttribute="bottom" secondItem="9gW-Rf-fv7" secondAttribute="bottomMargin" id="YhJ-fh-P2C"/>
+                                                <constraint firstAttribute="trailing" secondItem="NG0-fy-HrD" secondAttribute="trailing" constant="20" id="fYG-lN-LQj"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Nl3-xN-3kh" secondAttribute="trailing" id="ieG-oB-MeG"/>
-                                                <constraint firstItem="nwC-pb-26i" firstAttribute="leading" secondItem="9gW-Rf-fv7" secondAttribute="leading" constant="20" id="ifP-dN-anq"/>
+                                                <constraint firstItem="NG0-fy-HrD" firstAttribute="trailing" secondItem="Nl3-xN-3kh" secondAttribute="leading" id="m9U-0r-gG1"/>
                                                 <constraint firstItem="nwC-pb-26i" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="top" id="msT-Fg-R4A"/>
-                                                <constraint firstItem="Nl3-xN-3kh" firstAttribute="bottom" secondItem="9gW-Rf-fv7" secondAttribute="bottomMargin" id="q4g-8l-mse"/>
-                                                <constraint firstAttribute="trailing" secondItem="nwC-pb-26i" secondAttribute="trailing" constant="20" id="vHs-HY-uIk"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="fYG-lN-LQj"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="todoItemLabel" destination="Nl3-xN-3kh" id="3QG-9x-0o4"/>
@@ -172,4 +185,7 @@
             <point key="canvasLocation" x="-78" y="5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="rectangle" catalog="system" width="64" height="46"/>
+    </resources>
 </document>

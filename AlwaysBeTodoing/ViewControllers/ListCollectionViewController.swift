@@ -14,7 +14,19 @@ class ListCollectionViewController: UIViewController {
   @IBOutlet weak var listCollection: UITableView!
   @IBOutlet weak var editBarButtonItem: UIBarButtonItem!
 
+  // MARK: - DataSource
+  var todoLists: [TodoList] = []
+
   // MARK: - Lifecycle Methods
+  override func viewDidLoad() {
+    super.viewDidLoad()
+
+    navigationController?.navigationBar.prefersLargeTitles = true
+
+    listCollection.dataSource = self
+    listCollection.delegate = self
+  }
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
@@ -47,16 +59,6 @@ class ListCollectionViewController: UIViewController {
     self.isEditing = false
   }
 
-  // MARK: - DataSource
-  var todoLists: [TodoList] = []
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
-
-    listCollection.dataSource = self
-    listCollection.delegate = self
-  }
-
   // MARK: - Navigation
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     // TODO: Implement prepare(for:sender:)
@@ -64,6 +66,10 @@ class ListCollectionViewController: UIViewController {
     // Pass the selected object to the new view controller.
 
     // Need to prepare the TodoListVC with the proper "Checklist"
+    print("prepare(for:sender:) called")
+    if let selectedRow = listCollection.indexPathForSelectedRow?.row {
+      segue.destination.title = todoLists[selectedRow].title
+    }
   }
 }
 
@@ -71,6 +77,7 @@ class ListCollectionViewController: UIViewController {
 extension ListCollectionViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     // TODO: Implement
+    // may not be needed as there is a segue in the SB prototype cell
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -88,9 +95,19 @@ extension ListCollectionViewController: UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: "todoListCell",
                                              for: indexPath) as! TodoListTableViewCell
 
+    cell.delegate = self
     cell.todoListTextField.text = todoLists[indexPath.row].title
 
     return cell
   }
+}
 
+// MARK: - TodoListTableViewCellDelegate
+extension ListCollectionViewController: TodoListTableViewCellDelegate {
+  func titleSetForTodoList(sender: TodoListTableViewCell, title: String) {
+    guard let todoListTitle = sender.todoListLabel.text else { return }
+    guard let index = listCollection.indexPath(for: sender)?.row else { return }
+
+    todoLists[index].title = todoListTitle
+  }
 }

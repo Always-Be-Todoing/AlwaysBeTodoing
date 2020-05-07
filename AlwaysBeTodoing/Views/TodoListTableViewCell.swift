@@ -12,6 +12,8 @@ class TodoListTableViewCell: UITableViewCell {
   // MARK: Properties
   @IBOutlet weak var todoListTextField: UITextField!
   @IBOutlet weak var todoListLabel: UILabel!
+
+  weak var delegate: TodoListTableViewCellDelegate?
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -51,10 +53,15 @@ extension TodoListTableViewCell: UITextFieldDelegate {
     todoListLabel.text = textField.text
     todoListLabel.isHidden = false
 
+    if let todoListTitle = textField.text {
+      self.delegate?.titleSetForTodoList(sender: self, title: todoListTitle)
+    }
+
     return true
   }
 }
 
-protocol TodoListTableViewCellDelegate {
-  
+// MARK: Delegate Methods
+protocol TodoListTableViewCellDelegate: AnyObject {
+  func titleSetForTodoList(sender: TodoListTableViewCell, title: String)
 }

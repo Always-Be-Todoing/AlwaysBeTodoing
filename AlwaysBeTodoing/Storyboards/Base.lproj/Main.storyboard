@@ -67,7 +67,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="S3D-by-Gud"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Select or create a list!" id="Flz-oU-Yv9">
+                    <navigationItem key="navigationItem" title="Todo Lists!" largeTitleDisplayMode="always" id="Flz-oU-Yv9">
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="jdI-m1-Ayx"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ukF-4N-6Rf">
                             <connections>

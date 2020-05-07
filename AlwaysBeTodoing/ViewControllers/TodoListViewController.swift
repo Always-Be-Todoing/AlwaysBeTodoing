@@ -8,14 +8,11 @@
 
 import UIKit
 
-// TODO: Add swift doc for this class
-/*
- */
 class TodoListViewController: UIViewController {
   // MARK: Outlets
   @IBOutlet weak var tableView: UITableView!
 
-  // MARK: DataSource (Move this)
+  // MARK: DataSource (Temporary)
   var items: [String] = ["Study for Physics final", "Refresh FC Buffs", "Do yoga", "Eat yogurt"]
 
   override func viewDidLoad() {
@@ -27,12 +24,6 @@ class TodoListViewController: UIViewController {
 }
 
 extension TodoListViewController: UITableViewDelegate {
-  // TODO: What delegates need to be added?
-  // TODO: Edit RowHeight?
-  // TODO: Custom nib cell?
-    // Should this be made with a nib or storyboard prototype cell?
-      // Should prototype cell be replaced?
-        // What are its specific uses?
   func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
     return false
   }
@@ -53,7 +44,6 @@ extension TodoListViewController: UITableViewDataSource {
 
     // TODO: Replace this with a custom Checklist item cell
       // how should this look?
-//    cell.textLabel?.text = items[indexPath.row].description
 //    cell.todoItemTextField.text = items[indexPath.row].description
     cell.todoItemLabel.text = items[indexPath.row].description
 

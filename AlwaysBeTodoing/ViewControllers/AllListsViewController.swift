@@ -21,14 +21,14 @@ class AllListsViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    navigationController?.navigationBar.prefersLargeTitles = true
-
     tableView.dataSource = self
     tableView.delegate = self
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+
+    navigationController?.navigationBar.prefersLargeTitles = true
 
     // FIXME: Should this respond to only a TodoListTableViewCell notification?
     NotificationCenter.default.addObserver(self,
@@ -46,7 +46,7 @@ class AllListsViewController: UIViewController {
   }
 
   // MARK: - Actions
-  @IBAction func addNewList(_ sender: Any) {
+  @IBAction func addTodoList(_ sender: Any) {
     if self.isEditing == false {
       let list = TodoList()
       todoLists.append(list)
@@ -90,8 +90,9 @@ extension AllListsViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "todoListCell",
-                                             for: indexPath) as! TodoListTableViewCell
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoListCell", for: indexPath) as? AllListsTableViewCell else {
+        fatalError("The dequeued cell is not an instance of TodoListTableViewCell")
+    }
 
     cell.delegate = self
     cell.todoListTextField.text = todoLists[indexPath.row].title
@@ -102,7 +103,7 @@ extension AllListsViewController: UITableViewDataSource {
 
 // MARK: - TodoListTableViewCellDelegate
 extension AllListsViewController: TodoListTableViewCellDelegate {
-  func titleSetForTodoList(sender: TodoListTableViewCell, title: String) {
+  func titleSetForTodoList(sender: AllListsTableViewCell, title: String) {
     guard let todoListTitle = sender.todoListLabel.text else { return }
     guard let index = tableView.indexPath(for: sender)?.row else { return }
 

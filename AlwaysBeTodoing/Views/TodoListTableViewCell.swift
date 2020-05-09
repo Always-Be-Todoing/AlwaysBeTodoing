@@ -2,7 +2,7 @@
 //  TodoListTableViewCell.swift
 //  AlwaysBeTodoing
 //
-//  Created by Jeremy Fleshman on 5/6/20.
+//  Created by Jeremy Fleshman on 5/4/20.
 //  Copyright © 2020 Jeremy Fleshman. All rights reserved.
 //
 
@@ -10,18 +10,18 @@ import UIKit
 
 class TodoListTableViewCell: UITableViewCell {
   // MARK: Properties
-  @IBOutlet weak var todoListTextField: UITextField!
-  @IBOutlet weak var todoListLabel: UILabel!
+  @IBOutlet weak var todoItemTextField: UITextField!
+  @IBOutlet weak var todoItemLabel: UILabel!
 
-  weak var delegate: TodoListTableViewCellDelegate?
+  weak var delegate: TodoItemTableViewCellDelegate?
   
   override func awakeFromNib() {
     super.awakeFromNib()
 
-    todoListTextField.delegate = self
+    todoItemTextField.delegate = self
     
-    todoListLabel.isHidden = true
-    todoListTextField.becomeFirstResponder()
+    todoItemLabel.isHidden = true
+    todoItemTextField.becomeFirstResponder()
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
@@ -33,28 +33,15 @@ class TodoListTableViewCell: UITableViewCell {
 
 // MARK: UITextFieldDelegate
 extension TodoListTableViewCell: UITextFieldDelegate {
-  func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-    // TODO: Decide if/how edits should be conditionally blocked
-    return true
-  }
-
-  func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-    // FIXME: can the nil-coalescing operator be refactored out?
-    if textField.text?.isEmpty ?? false {
-      return false
-    }
-    return true
-  }
-
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
 
     textField.isHidden = true
-    todoListLabel.text = textField.text
-    todoListLabel.isHidden = false
+    todoItemLabel.text = textField.text
+    todoItemLabel.isHidden = false
 
     if let todoListTitle = textField.text {
-      self.delegate?.titleSetForTodoList(sender: self, title: todoListTitle)
+      self.delegate?.descriptionSetForTodoItem(sender: self, description: todoListTitle)
     }
 
     return true
@@ -62,6 +49,6 @@ extension TodoListTableViewCell: UITextFieldDelegate {
 }
 
 // MARK: Delegate Methods
-protocol TodoListTableViewCellDelegate: AnyObject {
-  func titleSetForTodoList(sender: TodoListTableViewCell, title: String)
+protocol TodoItemTableViewCellDelegate: AnyObject {
+  func descriptionSetForTodoItem(sender: TodoListTableViewCell, description: String)
 }

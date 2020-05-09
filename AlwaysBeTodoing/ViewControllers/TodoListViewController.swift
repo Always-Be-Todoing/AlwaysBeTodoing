@@ -38,19 +38,15 @@ class TodoListViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
 
-    // FIXME: Should this respond to only a TodoListTableViewCell notification?
+    navigationController?.navigationBar.prefersLargeTitles = false
+
     NotificationCenter.default.addObserver(self,
                                            selector: #selector(todoItemDescriptionFinishedEditing),
                                            name: UITextField.textDidEndEditingNotification,
                                            object: nil)
   }
 
-  override func viewWillDisappear(_ animated: Bool) {
-    super .viewWillDisappear(animated)
-
-    NotificationCenter.default.removeObserver(self)
-  }
-
+  // MARK: Selectors
   @objc func todoItemDescriptionFinishedEditing() {
     self.isEditing = false
   }
@@ -72,12 +68,13 @@ extension TodoListViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "todoItemCell",
-                                             for: indexPath) as! TodoItemTableViewCell
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoItemCell", for: indexPath) as? TodoListTableViewCell
+    else {
+      fatalError()
+    }
 
-    // TODO: Replace this with a custom Checklist item cell
-      // how should this look?
-//    cell.todoItemTextField.text = items[indexPath.row].description
+    cell.delegate = self
+    cell.todoItemTextField.text = todoItems[indexPath.row].description
     cell.todoItemLabel.text = todoItems[indexPath.row].description
 
     return cell
@@ -85,6 +82,54 @@ extension TodoListViewController: UITableViewDataSource {
   
 }
 
+// MARK: TodoItemTableViewCellDelegate
+extension TodoListViewController: TodoItemTableViewCellDelegate {
+  func descriptionSetForTodoItem(sender: TodoListTableViewCell,
+                                 description: String) {
+    guard let todoItemDescription = sender.todoItemLabel.text else { return }
+    guard let index = tableView.indexPath(for: sender)?.row else { return }
+
+    todoItems[index].description = todoItemDescription
+  }
+}
+
 protocol TodoListViewControllerDelegate: AnyObject {
   func didUpdateTodoItems(sender: TodoListViewController, items: [TodoItem])
 }
+
+
+// MARK: Potential TableView Delegate Methods to add
+/*
+ // Override to support conditional editing of the table view.
+ override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+ // Return false if you do not want the specified item to be editable.
+ return true
+ }
+ */
+
+/*
+ // Override to support editing the table view.
+ override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+ if editingStyle == .delete {
+ // Delete the row from the data source
+ tableView.deleteRows(at: [indexPath], with: .fade)
+ } else if editingStyle == .insert {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+ // Return false if you do not want the item to be re-orderable.
+ return true
+ }
+ */

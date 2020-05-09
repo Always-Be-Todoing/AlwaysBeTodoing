@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Joq-Io-ktf">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="todoListCell" rowHeight="44" id="GMM-kV-nqa" customClass="TodoListTableViewCell" customModule="AlwaysBeTodoing" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="todoListCell" rowHeight="44" id="GMM-kV-nqa" customClass="AllListsTableViewCell" customModule="AlwaysBeTodoing" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GMM-kV-nqa" id="OA6-SF-b4x">
@@ -71,7 +72,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="jdI-m1-Ayx"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ukF-4N-6Rf">
                             <connections>
-                                <action selector="addNewList:" destination="hG2-sd-leT" id="UoD-HM-i23"/>
+                                <action selector="addTodoList:" destination="hG2-sd-leT" id="UoD-HM-i23"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -113,14 +114,14 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="692"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="todoItemCell" rowHeight="44" id="WvQ-d2-iCR" customClass="TodoItemTableViewCell" customModule="AlwaysBeTodoing" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="todoItemCell" rowHeight="44" id="WvQ-d2-iCR" customClass="TodoListTableViewCell" customModule="AlwaysBeTodoing" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WvQ-d2-iCR" id="9gW-Rf-fv7">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What needs doing?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwC-pb-26i">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What needs doing?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwC-pb-26i">
                                                     <rect key="frame" x="64" y="0.0" width="350" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
@@ -131,8 +132,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rectangle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NG0-fy-HrD">
-                                                    <rect key="frame" x="20" y="21.666666666666664" width="44" height="1.0000000000000036"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NG0-fy-HrD">
+                                                    <rect key="frame" x="20" y="20" width="44" height="4"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="2he-pm-fgn"/>
                                                     </constraints>
@@ -159,8 +160,8 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="todoItemLabel" destination="Nl3-xN-3kh" id="3QG-9x-0o4"/>
-                                            <outlet property="todoItemTextField" destination="nwC-pb-26i" id="eIJ-ha-mzr"/>
+                                            <outlet property="todoItemLabel" destination="Nl3-xN-3kh" id="tUx-aN-ETG"/>
+                                            <outlet property="todoItemTextField" destination="nwC-pb-26i" id="Pih-LX-k8g"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -175,7 +176,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Todo List" id="GqX-tK-irU"/>
+                    <navigationItem key="navigationItem" title="Todo List" id="GqX-tK-irU">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="voL-bq-MQ6">
+                            <connections>
+                                <action selector="addTodoItem:" destination="BYZ-38-t0r" id="JUh-ir-arU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="2Xp-RF-a79" id="yzq-NF-s7H"/>
                     </connections>
@@ -185,7 +192,4 @@
             <point key="canvasLocation" x="-78" y="5"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="rectangle" catalog="system" width="64" height="46"/>
-    </resources>
 </document>

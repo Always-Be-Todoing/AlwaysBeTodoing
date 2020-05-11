@@ -12,22 +12,20 @@ class TodoListTableViewCell: UITableViewCell {
   // MARK: Properties
   @IBOutlet weak var todoItemTextField: UITextField!
   @IBOutlet weak var todoItemLabel: UILabel!
+  @IBOutlet weak var todoItemCheckbox: UIImageView!
 
   weak var delegate: TodoItemTableViewCellDelegate?
   
   override func awakeFromNib() {
     super.awakeFromNib()
 
-    todoItemTextField.delegate = self
-    
-    todoItemLabel.isHidden = true
-    todoItemTextField.becomeFirstResponder()
+    configureCell()
   }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
+
+  func configureCell() {
+    todoItemTextField.delegate = self
+    todoItemCheckbox.isUserInteractionEnabled = true
+    todoItemTextField.becomeFirstResponder()
   }
 }
 

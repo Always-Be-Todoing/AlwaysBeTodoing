@@ -53,8 +53,12 @@ class TodoListViewController: UIViewController {
 }
 
 extension TodoListViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
-    return false
+//  func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+//    return false
+//  }
+
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -74,12 +78,22 @@ extension TodoListViewController: UITableViewDataSource {
     }
 
     cell.delegate = self
-    cell.todoItemTextField.text = todoItems[indexPath.row].description
-    cell.todoItemLabel.text = todoItems[indexPath.row].description
+
+    let todoItemDescription = todoItems[indexPath.row].description
+    cell.todoItemTextField.text = todoItemDescription
+    cell.todoItemLabel.text = todoItemDescription
+
+    // TODO: Refactor this to use a ternary operator or some such
+    if todoItemDescription.isEmpty {
+      cell.todoItemTextField.isHidden = false
+      cell.todoItemLabel.isHidden = true
+    } else {
+      cell.todoItemTextField.isHidden = true
+      cell.todoItemLabel.isHidden = false
+    }
 
     return cell
   }
-  
 }
 
 // MARK: TodoItemTableViewCellDelegate

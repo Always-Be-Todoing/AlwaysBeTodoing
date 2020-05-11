@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Joq-Io-ktf">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -27,27 +26,27 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name for this list?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gwS-0d-76A">
-                                                    <rect key="frame" x="20" y="0.0" width="374" height="44"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
-                                                </textField>
-                                                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="2000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjN-6r-mR0">
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="2000" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TodoList" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wjN-6r-mR0">
                                                     <rect key="frame" x="20" y="11" width="374" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textField opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Name for this list?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gwS-0d-76A">
+                                                    <rect key="frame" x="20" y="0.0" width="386" height="44"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
+                                                </textField>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="wjN-6r-mR0" firstAttribute="leading" secondItem="OA6-SF-b4x" secondAttribute="leading" constant="20" id="7ae-Cc-CZD"/>
                                                 <constraint firstItem="gwS-0d-76A" firstAttribute="leading" secondItem="OA6-SF-b4x" secondAttribute="leading" constant="20" id="Hxv-sU-Gpj"/>
-                                                <constraint firstAttribute="trailing" secondItem="gwS-0d-76A" secondAttribute="trailing" constant="20" id="Tki-I6-F1u"/>
+                                                <constraint firstAttribute="trailing" secondItem="gwS-0d-76A" secondAttribute="trailing" constant="8" id="Tki-I6-F1u"/>
                                                 <constraint firstItem="wjN-6r-mR0" firstAttribute="top" secondItem="OA6-SF-b4x" secondAttribute="topMargin" id="Zsq-R6-v1u"/>
                                                 <constraint firstAttribute="bottom" secondItem="gwS-0d-76A" secondAttribute="bottom" id="apD-yf-XJZ"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="wjN-6r-mR0" secondAttribute="trailing" id="hmm-Pp-Hyz"/>
                                                 <constraint firstItem="gwS-0d-76A" firstAttribute="top" secondItem="OA6-SF-b4x" secondAttribute="top" id="oQb-aX-Pe4"/>
                                                 <constraint firstItem="wjN-6r-mR0" firstAttribute="bottom" secondItem="OA6-SF-b4x" secondAttribute="bottomMargin" id="uLc-y2-dRo"/>
-                                                <constraint firstItem="wjN-6r-mR0" firstAttribute="leading" secondItem="OA6-SF-b4x" secondAttribute="leadingMargin" id="vug-1e-kxt"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -121,45 +120,40 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What needs doing?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwC-pb-26i">
-                                                    <rect key="frame" x="64" y="0.0" width="350" height="44"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What needs doing?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwC-pb-26i">
+                                                    <rect key="frame" x="52" y="0.0" width="346" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nl3-xN-3kh">
-                                                    <rect key="frame" x="64" y="11" width="330" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TodoItem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nl3-xN-3kh">
+                                                    <rect key="frame" x="52" y="11" width="326" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NG0-fy-HrD">
-                                                    <rect key="frame" x="20" y="20" width="44" height="4"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Eu9-Ph-bmi">
+                                                    <rect key="frame" x="8" y="1.6666666666666643" width="44" height="41"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="44" id="2he-pm-fgn"/>
+                                                        <constraint firstAttribute="width" constant="44" id="5H8-3i-0LE"/>
+                                                        <constraint firstAttribute="height" constant="44" id="jTn-EU-l9g"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Nl3-xN-3kh" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="topMargin" id="4ss-1Q-VXr"/>
-                                                <constraint firstAttribute="bottom" secondItem="NG0-fy-HrD" secondAttribute="bottom" constant="20" id="6yb-6n-gRR"/>
                                                 <constraint firstAttribute="bottom" secondItem="nwC-pb-26i" secondAttribute="bottom" id="Gug-2J-ZRe"/>
-                                                <constraint firstItem="nwC-pb-26i" firstAttribute="leading" secondItem="NG0-fy-HrD" secondAttribute="trailing" id="JbY-P0-CHL"/>
-                                                <constraint firstAttribute="trailing" secondItem="nwC-pb-26i" secondAttribute="trailing" id="SQK-us-DCl"/>
-                                                <constraint firstItem="NG0-fy-HrD" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="top" constant="20" id="V5U-As-9qP"/>
-                                                <constraint firstItem="NG0-fy-HrD" firstAttribute="leading" secondItem="9gW-Rf-fv7" secondAttribute="leadingMargin" id="WOw-xk-0OJ"/>
+                                                <constraint firstItem="nwC-pb-26i" firstAttribute="leading" secondItem="Eu9-Ph-bmi" secondAttribute="trailing" id="Gyi-Fc-7LK"/>
+                                                <constraint firstAttribute="trailing" secondItem="nwC-pb-26i" secondAttribute="trailing" constant="16" id="SQK-us-DCl"/>
                                                 <constraint firstItem="Nl3-xN-3kh" firstAttribute="bottom" secondItem="9gW-Rf-fv7" secondAttribute="bottomMargin" id="YhJ-fh-P2C"/>
-                                                <constraint firstAttribute="trailing" secondItem="NG0-fy-HrD" secondAttribute="trailing" constant="20" id="fYG-lN-LQj"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Nl3-xN-3kh" secondAttribute="trailing" id="ieG-oB-MeG"/>
-                                                <constraint firstItem="NG0-fy-HrD" firstAttribute="trailing" secondItem="Nl3-xN-3kh" secondAttribute="leading" id="m9U-0r-gG1"/>
+                                                <constraint firstItem="Eu9-Ph-bmi" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="top" id="cKR-MF-N31"/>
+                                                <constraint firstItem="Eu9-Ph-bmi" firstAttribute="leading" secondItem="9gW-Rf-fv7" secondAttribute="leading" constant="8" id="fpZ-aQ-t5M"/>
+                                                <constraint firstItem="Nl3-xN-3kh" firstAttribute="leading" secondItem="Eu9-Ph-bmi" secondAttribute="trailing" id="gAk-rg-8PO"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Nl3-xN-3kh" secondAttribute="trailing" constant="16" id="ieG-oB-MeG"/>
                                                 <constraint firstItem="nwC-pb-26i" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="top" id="msT-Fg-R4A"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="fYG-lN-LQj"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="todoItemCheckbox" destination="Eu9-Ph-bmi" id="J0p-7l-fq5"/>
                                             <outlet property="todoItemLabel" destination="Nl3-xN-3kh" id="tUx-aN-ETG"/>
                                             <outlet property="todoItemTextField" destination="nwC-pb-26i" id="Pih-LX-k8g"/>
                                         </connections>
@@ -192,4 +186,7 @@
             <point key="canvasLocation" x="-78" y="5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="square" catalog="system" width="64" height="56"/>
+    </resources>
 </document>

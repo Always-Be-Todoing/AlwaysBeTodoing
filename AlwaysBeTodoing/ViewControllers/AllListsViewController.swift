@@ -15,7 +15,20 @@ class AllListsViewController: UIViewController {
   @IBOutlet weak var editBarButtonItem: UIBarButtonItem!
 
   // MARK: - DataSource
-  var todoLists: [TodoList] = []
+//  var todoLists: [TodoList] = []
+  var todoLists: [TodoList] = [
+    TodoList("Shopping",
+             items: [
+               TodoItem("Ice cream", isChecked: false),
+               TodoItem("Yogurt", isChecked: true),
+               TodoItem("Apples", isChecked: true)
+             ]
+            ),
+    TodoList("Exercising",
+             items: []),
+    TodoList("Coding",
+             items: []),
+  ]
 
   // MARK: - Lifecycle Methods
   override func viewDidLoad() {
@@ -95,8 +108,19 @@ extension AllListsViewController: UITableViewDataSource {
     }
 
     cell.delegate = self
-    cell.todoListTextField.text = todoLists[indexPath.row].title
 
+    let todoListTitle = todoLists[indexPath.row].title
+    cell.todoListTextField.text = todoListTitle
+    cell.todoListLabel.text = todoListTitle
+
+    // TODO: Refactor this using a compound ternary operator or some such
+    if todoListTitle.isEmpty {
+      cell.todoListTextField.isHidden = false
+      cell.todoListLabel.isHidden = true
+    } else {
+      cell.todoListTextField.isHidden = true
+      cell.todoListLabel.isHidden = false
+    }
     return cell
   }
 }

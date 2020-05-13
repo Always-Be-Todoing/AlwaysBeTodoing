@@ -69,9 +69,9 @@ class AllListsViewController: UIViewController {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     guard let selectedRow = tableView.indexPathForSelectedRow?.row else { return }
     if (segue.identifier == "AllListsVCToTodoListVC") {
-      // TODO: Does a delegate need to be set here to update the data model?
       let todoListVC = segue.destination as! TodoListViewController
       todoListVC.todoItems = todoLists[selectedRow].items
+      todoListVC.delegate = self
       segue.destination.title = todoLists[selectedRow].title
     }
   }
@@ -163,7 +163,10 @@ extension AllListsViewController: TodoListTableViewCellDelegate {
 // MARK: TodoListViewControllerDelegate
 extension AllListsViewController: TodoListViewControllerDelegate {
   func didUpdateTodoItems(sender: TodoListViewController, items: [TodoItem]) {
-    // TODO: Implement
+    // FIXME: Is there a better way to get the cell?
+    guard let row = tableView.indexPathForSelectedRow?.row else { return }
+    todoLists[row].items = items
+    saveTodoLists()
   }
 }
 

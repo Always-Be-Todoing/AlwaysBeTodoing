@@ -8,6 +8,11 @@
 
 import UIKit
 
+struct UIImageKeys {
+  static let square = "square"
+  static let checkmarkSquare = "checkmark.square"
+}
+
 class TodoListViewController: UIViewController {
   // MARK: Properties
   @IBOutlet weak var tableView: UITableView!
@@ -52,59 +57,42 @@ class TodoListViewController: UIViewController {
   }
 }
 
+// MARK: UITableViewDelegate
 extension TodoListViewController: UITableViewDelegate {
-  // TODO: Evaluate the access level for this and other functions
-  func toggleTodoItemCheckedState(_ tableView: UITableView, _ indexPath: IndexPath) {
-    // TODO: Implement checking the item in UI,
-    // TODO: update the model,
-    // TODO: and fading the cell label
-
-    var todoItem = todoItems[indexPath.row]
-
-    if let cell = tableView.cellForRow(at: indexPath) as? TodoListTableViewCell {
-      if todoItem.checked {
-        cell.todoItemCheckbox.image = UIImage(systemName: "square") // FIXME: can this be an enum?
-      } else {
-        cell.todoItemCheckbox.image = UIImage(systemName: "checkmark.square") // FIXME: can this be an enum?
-      }
-
-      // FIXME: This is not updating the array's object -- why?
-      todoItem.checked = !(todoItem.checked)
-    }
-  }
-
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     toggleTodoItemCheckedState(tableView, indexPath)
 
     tableView.deselectRow(at: indexPath, animated: true)
   }
+//
+//  fileprivate func toggleTodoItemCheckedState(_ tableView: UITableView, _ indexPath: IndexPath) {
+//    // TODO: Implement checking the item in UI,
+//    // TODO: update the model,
+//    // TODO: and fading the cell label
+//
+//    var todoItem = todoItems[indexPath.row]
+//
+//    if let cell = tableView.cellForRow(at: indexPath) as? TodoListTableViewCell {
+//      if todoItem.checked {
+//        cell.todoItemCheckbox.image = UIImage(systemName: "square") // FIXME: can this be an enum?
+//      } else {
+//        cell.todoItemCheckbox.image = UIImage(systemName: "checkmark.square") // FIXME: can this be an enum?
+//      }
+//
+//      // FIXME: This is not updating the array's object -- why?
+//      todoItem.checked = !(todoItem.checked)
+//    }
+//  }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 44.0
   }
 }
 
+// MARK: UITableViewDataSource
 extension TodoListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return todoItems.count
-  }
-
-  fileprivate func setCellUIVisibility(_ todoItemDescription: String, _ cell: TodoListTableViewCell) {
-    // TODO: Refactor this to use a ternary operator or some such
-    if todoItemDescription.isEmpty {
-      cell.todoItemTextField.isHidden = false
-      cell.todoItemLabel.isHidden = true
-    } else {
-      cell.todoItemTextField.isHidden = true
-      cell.todoItemLabel.isHidden = false
-    }
-  }
-
-  fileprivate func setCheckmarkState(_ todoItem: TodoItem,
-                                     _ cell: TodoListTableViewCell) {
-    let isTodoItemChecked = todoItem.checked
-    let todoItemCheckedImage = isTodoItemChecked ? "checkmark.square" : "square"
-    cell.todoItemCheckbox.image = UIImage(systemName: todoItemCheckedImage)
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,19 +103,76 @@ extension TodoListViewController: UITableViewDataSource {
 
     cell.delegate = self
 
-    let todoItem = todoItems[indexPath.row]
-
-    let todoItemDescription = todoItem.description
-    cell.todoItemTextField.text = todoItemDescription
-    cell.todoItemLabel.text = todoItemDescription
-
-    setCheckmarkState(todoItem, cell)
-
-    setCellUIVisibility(todoItemDescription, cell)
+    configureCell(indexPath, cell)
 
     return cell
   }
+
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      // Delete the row from the data source
+      todoItems.remove(at: indexPath.row)
+      self.delegate?.didUpdateTodoItems(sender: self, items: todoItems)
+      tableView.deleteRows(at: [indexPath], with: .fade)
+    } else if editingStyle == .insert {
+      // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+  }
 }
+
+// MARK: File-private Extractions
+extension TodoListViewController {
+  fileprivate func setInitialCellValuesPerModel(_ todoItem: TodoItem, _ cell: TodoListTableViewCell) {
+    let todoItemDescription = todoItem.description
+    cell.todoItemTextField.text = todoItemDescription
+    cell.todoItemLabel.text = todoItemDescription
+  }
+
+  fileprivate func configureCell(_ indexPath: IndexPath, _ cell: TodoListTableViewCell) {
+    let todoItem = todoItems[indexPath.row]
+    setInitialCellValuesPerModel(todoItem, cell)
+    setCheckmarkState(todoItem, cell)
+    setCellUIVisibility(todoItem, cell)
+  }
+
+  fileprivate func toggleTodoItemCheckedState(_ tableView: UITableView, _ indexPath: IndexPath) {
+    // TODO: Implement checking the item in UI,
+    // TODO: update the model,
+    // TODO: and fading the cell label
+
+    var todoItem = todoItems[indexPath.row]
+
+    if let cell = tableView.cellForRow(at: indexPath) as? TodoListTableViewCell {
+      if todoItem.checked {
+        cell.todoItemCheckbox.image = UIImage(systemName: UIImageKeys.checkmarkSquare) // FIXME: can this be an enum?
+      } else {
+        cell.todoItemCheckbox.image = UIImage(systemName: UIImageKeys.square) // FIXME: can this be an enum?
+      }
+
+      // FIXME: This is not updating the array's object -- why?
+      todoItem.checked = !(todoItem.checked)
+    }
+  }
+
+  fileprivate func setCellUIVisibility(_ todoItem: TodoItem, _ cell: TodoListTableViewCell) {
+    let todoItemDescription = todoItem.description
+    // TODO: Refactor this to use a ternary operator or similar
+    if todoItemDescription.isEmpty {
+      cell.todoItemTextField.isHidden = false
+      cell.todoItemLabel.isHidden = true
+    } else {
+      cell.todoItemTextField.isHidden = true
+      cell.todoItemLabel.isHidden = false
+    }
+  }
+
+  fileprivate func setCheckmarkState(_ todoItem: TodoItem, _ cell: TodoListTableViewCell) {
+    let isTodoItemChecked = todoItem.checked
+    let todoItemCheckedImage = isTodoItemChecked ? "checkmark.square" : "square"
+    cell.todoItemCheckbox.image = UIImage(systemName: todoItemCheckedImage)
+  }
+}
+
 
 // MARK: TodoItemTableViewCellDelegate
 extension TodoListViewController: TodoItemTableViewCellDelegate {
@@ -137,9 +182,11 @@ extension TodoListViewController: TodoItemTableViewCellDelegate {
     guard let index = tableView.indexPath(for: sender)?.row else { return }
 
     todoItems[index].description = todoItemDescription
+    self.delegate?.didUpdateTodoItems(sender: self, items: todoItems)
   }
 }
 
+// MARK: TodoListViewControllerDelegate
 protocol TodoListViewControllerDelegate: AnyObject {
   func didUpdateTodoItems(sender: TodoListViewController, items: [TodoItem])
 }
@@ -151,18 +198,6 @@ protocol TodoListViewControllerDelegate: AnyObject {
  override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
  // Return false if you do not want the specified item to be editable.
  return true
- }
- */
-
-/*
- // Override to support editing the table view.
- override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
- if editingStyle == .delete {
- // Delete the row from the data source
- tableView.deleteRows(at: [indexPath], with: .fade)
- } else if editingStyle == .insert {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
  }
  */
 

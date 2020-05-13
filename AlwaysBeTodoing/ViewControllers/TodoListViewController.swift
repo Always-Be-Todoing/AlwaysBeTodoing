@@ -68,10 +68,8 @@ extension TodoListViewController: UITableViewDelegate {
         cell.todoItemCheckbox.image = UIImage(systemName: "checkmark.square") // FIXME: can this be an enum?
       }
 
-      // FIXME: This is not updating the array's object
+      // FIXME: This is not updating the array's object -- why?
       todoItem.checked = !(todoItem.checked)
-      todoItems[indexPath.row].checked = !(todoItem.checked)
-//      todoItem.checked = !(todoItem.checked)
     }
   }
 

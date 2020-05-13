@@ -8,6 +8,10 @@
 
 import UIKit
 
+struct Keys {
+  static let todoLists: String = "todoLists"
+}
+
 class AllListsViewController: UIViewController {
   // MARK: - Properties
   @IBOutlet weak var addChecklist: UIBarButtonItem!
@@ -15,24 +19,13 @@ class AllListsViewController: UIViewController {
   @IBOutlet weak var editBarButtonItem: UIBarButtonItem!
 
   // MARK: - DataSource
-//  var todoLists: [TodoList] = []
-  var todoLists: [TodoList] = [
-    TodoList("Shopping",
-             items: [
-               TodoItem("Ice cream", isChecked: false),
-               TodoItem("Yogurt", isChecked: true),
-               TodoItem("Apples", isChecked: true)
-             ]
-            ),
-    TodoList("Exercising",
-             items: []),
-    TodoList("Coding",
-             items: []),
-  ]
+  var todoLists: [TodoList] = []
 
   // MARK: - Lifecycle Methods
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    todoLists = loadTodoLists()!
 
     tableView.dataSource = self
     tableView.delegate = self
@@ -84,6 +77,25 @@ class AllListsViewController: UIViewController {
   }
 }
 
+// MARK: - Save/Load NSUserDefaults (Temporary)
+extension AllListsViewController {
+  func saveTodoLists() {
+    // TODO: Replace use of NSDefaults for temp persistent storage
+    // TODO: Refactor to use a Storage Protocol to extract the storage implementation
+    let defaults = UserDefaults.standard
+
+    defaults.set(try? PropertyListEncoder().encode(todoLists),
+                 forKey: Keys.todoLists)
+  }
+
+  func loadTodoLists() -> [TodoList]? {
+    let defaults = UserDefaults.standard
+    guard let todoListsData = defaults.data(forKey: Keys.todoLists) else { return [TodoList]() }
+    guard let todoListArray = try? PropertyListDecoder().decode([TodoList].self, from: todoListsData) else { return [TodoList]() }
+    return todoListArray
+  }
+}
+
 // MARK: - UITableViewDelegate
 extension AllListsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -123,6 +135,18 @@ extension AllListsViewController: UITableViewDataSource {
     }
     return cell
   }
+
+  // Override to support editing the table view.
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      // Delete the row from the data source
+      todoLists.remove(at: indexPath.row)
+      saveTodoLists()
+      tableView.deleteRows(at: [indexPath], with: .fade)
+    } else if editingStyle == .insert {
+      // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+  }
 }
 
 // MARK: - TodoListTableViewCellDelegate
@@ -132,6 +156,7 @@ extension AllListsViewController: TodoListTableViewCellDelegate {
     guard let index = tableView.indexPath(for: sender)?.row else { return }
 
     todoLists[index].title = todoListTitle
+    saveTodoLists()
   }
 }
 
@@ -142,3 +167,26 @@ extension AllListsViewController: TodoListViewControllerDelegate {
   }
 }
 
+// MARK: Potential TableView Delegate Methods to add
+/*
+ // Override to support conditional editing of the table view.
+ override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+ // Return false if you do not want the specified item to be editable.
+ return true
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+ // Return false if you do not want the item to be re-orderable.
+ return true
+ }
+ */

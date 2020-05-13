@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TodoItem {
+struct TodoItem: Codable {
   // MARK: Properties
   var description: String
   var checked: Bool

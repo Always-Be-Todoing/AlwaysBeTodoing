@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TodoList {
+struct TodoList: Codable {
   // MARK: Properties
   var title: String
   var items: [TodoItem]

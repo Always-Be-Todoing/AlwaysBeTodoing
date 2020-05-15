@@ -27,6 +27,9 @@ class AllListsViewController: UIViewController {
 
     todoLists = loadTodoLists()!
 
+    // TODO: Remove this when implementing edit
+    editBarButtonItem.isEnabled = false
+
     tableView.dataSource = self
     tableView.delegate = self
   }
@@ -113,7 +116,7 @@ extension AllListsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return todoLists.count
   }
-  
+
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoListCell", for: indexPath) as? AllListsTableViewCell else {
         fatalError("The dequeued cell is not an instance of TodoListTableViewCell")
@@ -121,18 +124,8 @@ extension AllListsViewController: UITableViewDataSource {
 
     cell.delegate = self
 
-    let todoListTitle = todoLists[indexPath.row].title
-    cell.todoListTextField.text = todoListTitle
-    cell.todoListLabel.text = todoListTitle
+    configureCell(indexPath, cell)
 
-    // TODO: Refactor this using a compound ternary operator or some such
-    if todoListTitle.isEmpty {
-      cell.todoListTextField.isHidden = false
-      cell.todoListLabel.isHidden = true
-    } else {
-      cell.todoListTextField.isHidden = true
-      cell.todoListLabel.isHidden = false
-    }
     return cell
   }
 
@@ -145,6 +138,45 @@ extension AllListsViewController: UITableViewDataSource {
       tableView.deleteRows(at: [indexPath], with: .fade)
     } else if editingStyle == .insert {
       // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+  }
+
+   // Override to support rearranging the table view.
+  func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    // reorder local data array
+    let itemToMove = todoLists[fromIndexPath.row]
+    todoLists.remove(at: fromIndexPath.row)
+    todoLists.insert(itemToMove, at: to.row)
+
+
+    // reload tableView
+    tableView.reloadData()
+
+    // save to storage
+    saveTodoLists()
+   }
+}
+
+// MARK: - Fileprivate Method Extractions
+extension AllListsViewController {
+  fileprivate func configureCell(_ indexPath: IndexPath, _ cell: AllListsTableViewCell) {
+    // TODO: Decide if this function should be split up like TodoListVC's
+    let todoListTitle = todoLists[indexPath.row].title
+    cell.todoListTextField.text = todoListTitle
+    cell.todoListLabel.text = todoListTitle
+
+    // TODO: Refactor this using a compound ternary operator or some such
+    if todoListTitle.isEmpty {
+      cell.todoListTextField.isHidden = false
+      cell.todoListLabel.isHidden = true
+    } else {
+      cell.todoListTextField.isHidden = true
+      cell.todoListLabel.isHidden = false
+    }
+
+    if todoLists[indexPath.row].title.isEmpty {
+      cell.todoListTextField.becomeFirstResponder()
     }
   }
 }
@@ -160,7 +192,7 @@ extension AllListsViewController: TodoListTableViewCellDelegate {
   }
 }
 
-// MARK: TodoListViewControllerDelegate
+// MARK: - TodoListViewControllerDelegate
 extension AllListsViewController: TodoListViewControllerDelegate {
   func didUpdateTodoItems(sender: TodoListViewController, items: [TodoItem]) {
     // FIXME: Is there a better way to get the cell?
@@ -176,13 +208,6 @@ extension AllListsViewController: TodoListViewControllerDelegate {
  override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
  // Return false if you do not want the specified item to be editable.
  return true
- }
- */
-
-/*
- // Override to support rearranging the table view.
- override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
  }
  */
 

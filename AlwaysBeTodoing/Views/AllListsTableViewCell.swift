@@ -23,8 +23,6 @@ class AllListsTableViewCell: UITableViewCell {
 
   func configureCell() {
     todoListTextField.delegate = self
-
-    todoListTextField.becomeFirstResponder()
   }
 }
 

@@ -25,7 +25,6 @@ class TodoListTableViewCell: UITableViewCell {
   func configureCell() {
     todoItemTextField.delegate = self
     todoItemCheckbox.isUserInteractionEnabled = true
-    todoItemTextField.becomeFirstResponder()
   }
 }
 

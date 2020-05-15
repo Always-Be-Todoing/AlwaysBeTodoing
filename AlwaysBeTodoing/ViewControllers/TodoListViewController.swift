@@ -78,8 +78,8 @@ extension TodoListViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoItemCell", for: indexPath) as? TodoListTableViewCell
-    else {
-      fatalError()
+      else {
+        fatalError()
     }
 
     cell.delegate = self
@@ -102,17 +102,42 @@ extension TodoListViewController: UITableViewDataSource {
 
 // MARK: File-private Extractions
 extension TodoListViewController {
+  fileprivate func configureCell(_ indexPath: IndexPath, _ cell: TodoListTableViewCell) {
+    let todoItem = todoItems[indexPath.row]
+    setInitialCellValuesPerModel(todoItem, cell)
+    setCheckmarkState(todoItem, cell)
+    setCellUIVisibility(todoItem, cell)
+    setFirstResponderConditionally(indexPath, cell)
+  }
+
   fileprivate func setInitialCellValuesPerModel(_ todoItem: TodoItem, _ cell: TodoListTableViewCell) {
     let todoItemDescription = todoItem.description
     cell.todoItemTextField.text = todoItemDescription
     cell.todoItemLabel.text = todoItemDescription
   }
 
-  fileprivate func configureCell(_ indexPath: IndexPath, _ cell: TodoListTableViewCell) {
-    let todoItem = todoItems[indexPath.row]
-    setInitialCellValuesPerModel(todoItem, cell)
-    setCheckmarkState(todoItem, cell)
-    setCellUIVisibility(todoItem, cell)
+  fileprivate func setCheckmarkState(_ todoItem: TodoItem, _ cell: TodoListTableViewCell) {
+    let isTodoItemChecked = todoItem.checked
+    let todoItemCheckedImage = isTodoItemChecked ? "checkmark.square" : "square"
+    cell.todoItemCheckbox.image = UIImage(systemName: todoItemCheckedImage)
+  }
+
+  fileprivate func setCellUIVisibility(_ todoItem: TodoItem, _ cell: TodoListTableViewCell) {
+    let todoItemDescription = todoItem.description
+    // TODO: Refactor this to use a ternary operator or similar
+    if todoItemDescription.isEmpty {
+      cell.todoItemTextField.isHidden = false
+      cell.todoItemLabel.isHidden = true
+    } else {
+      cell.todoItemTextField.isHidden = true
+      cell.todoItemLabel.isHidden = false
+    }
+  }
+
+  fileprivate func setFirstResponderConditionally(_ indexPath: IndexPath, _ cell: TodoListTableViewCell) {
+    if todoItems[indexPath.row].description.isEmpty {
+      cell.todoItemTextField.becomeFirstResponder()
+    }
   }
 
   fileprivate func toggleTodoItemCheckedState(_ tableView: UITableView, _ indexPath: IndexPath) {
@@ -134,24 +159,6 @@ extension TodoListViewController {
     }
 
     self.delegate?.didUpdateTodoItems(sender: self, items: todoItems)
-  }
-
-  fileprivate func setCellUIVisibility(_ todoItem: TodoItem, _ cell: TodoListTableViewCell) {
-    let todoItemDescription = todoItem.description
-    // TODO: Refactor this to use a ternary operator or similar
-    if todoItemDescription.isEmpty {
-      cell.todoItemTextField.isHidden = false
-      cell.todoItemLabel.isHidden = true
-    } else {
-      cell.todoItemTextField.isHidden = true
-      cell.todoItemLabel.isHidden = false
-    }
-  }
-
-  fileprivate func setCheckmarkState(_ todoItem: TodoItem, _ cell: TodoListTableViewCell) {
-    let isTodoItemChecked = todoItem.checked
-    let todoItemCheckedImage = isTodoItemChecked ? "checkmark.square" : "square"
-    cell.todoItemCheckbox.image = UIImage(systemName: todoItemCheckedImage)
   }
 }
 

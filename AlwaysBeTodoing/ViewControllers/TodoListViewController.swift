@@ -27,7 +27,8 @@ class TodoListViewController: UIViewController {
     if self.isEditing == false {
       let todoItem = TodoItem()
       todoItems.append(todoItem)
-      tableView.reloadData()
+      let lastIndexPath = IndexPath(row: todoItems.count - 1, section: 0)
+      tableView.insertRows(at: [lastIndexPath], with: .automatic)
       self.isEditing = true
     }
   }
@@ -53,7 +54,11 @@ class TodoListViewController: UIViewController {
 
   // MARK: Selectors
   @objc func todoItemDescriptionFinishedEditing() {
-    self.isEditing = false
+    let currentIndexPath = IndexPath(row: todoItems.count - 1, section: 0)
+    let currentCell = tableView.cellForRow(at: currentIndexPath) as? TodoListTableViewCell
+    if currentCell?.todoItemTextField.text?.isEmpty == false {
+      self.isEditing = false
+    }
   }
 }
 
@@ -94,6 +99,7 @@ extension TodoListViewController: UITableViewDataSource {
       todoItems.remove(at: indexPath.row)
       self.delegate?.didUpdateTodoItems(sender: self, items: todoItems)
       tableView.deleteRows(at: [indexPath], with: .fade)
+      self.isEditing = false
     } else if editingStyle == .insert {
       // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
@@ -172,6 +178,7 @@ extension TodoListViewController: TodoItemTableViewCellDelegate {
 
     todoItems[index].description = todoItemDescription
     self.delegate?.didUpdateTodoItems(sender: self, items: todoItems)
+    addTodoItem(self)
   }
 }
 

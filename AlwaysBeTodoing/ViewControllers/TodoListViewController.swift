@@ -96,10 +96,7 @@ extension TodoListViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
-      todoItems.remove(at: indexPath.row)
-      self.delegate?.didUpdateTodoItems(sender: self, items: todoItems)
-      tableView.deleteRows(at: [indexPath], with: .fade)
-      self.isEditing = false
+      deleteItem(indexPath, tableView)
     } else if editingStyle == .insert {
       // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }
@@ -166,6 +163,14 @@ extension TodoListViewController {
 
     self.delegate?.didUpdateTodoItems(sender: self, items: todoItems)
   }
+
+  fileprivate func deleteItem(_ indexPath: IndexPath, _ tableView: UITableView) {
+    print("Item deleted")
+    todoItems.remove(at: indexPath.row)
+    self.delegate?.didUpdateTodoItems(sender: self, items: todoItems)
+    tableView.deleteRows(at: [indexPath], with: .fade)
+    self.isEditing = false
+  }
 }
 
 
@@ -179,6 +184,11 @@ extension TodoListViewController: TodoItemTableViewCellDelegate {
     todoItems[index].description = todoItemDescription
     self.delegate?.didUpdateTodoItems(sender: self, items: todoItems)
     addTodoItem(self)
+  }
+
+  func didTapRemoveButton(sender: TodoListTableViewCell) {
+    guard let indexPath = tableView.indexPath(for: sender) else { return }
+    deleteItem(indexPath, self.tableView)
   }
 }
 

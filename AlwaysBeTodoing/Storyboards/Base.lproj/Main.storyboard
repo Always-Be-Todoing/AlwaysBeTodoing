@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Joq-Io-ktf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Joq-Io-ktf">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -121,12 +121,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="What needs doing?" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwC-pb-26i">
-                                                    <rect key="frame" x="52" y="0.0" width="346" height="44"/>
+                                                    <rect key="frame" x="52" y="0.0" width="314" height="44"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TodoItem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nl3-xN-3kh">
-                                                    <rect key="frame" x="52" y="11" width="326" height="22"/>
+                                                    <rect key="frame" x="52" y="11" width="310" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -138,21 +138,34 @@
                                                         <constraint firstAttribute="height" constant="44" id="jTn-EU-l9g"/>
                                                     </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JBj-db-a3J">
+                                                    <rect key="frame" x="362" y="0.0" width="52" height="44"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="4"/>
+                                                    <state key="normal" title="Button" image="xmark.circle" catalog="system"/>
+                                                    <connections>
+                                                        <action selector="removeItemButtonTapped:" destination="WvQ-d2-iCR" eventType="touchUpInside" id="JgL-VZ-hzr"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Nl3-xN-3kh" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="topMargin" id="4ss-1Q-VXr"/>
                                                 <constraint firstAttribute="bottom" secondItem="nwC-pb-26i" secondAttribute="bottom" id="Gug-2J-ZRe"/>
                                                 <constraint firstItem="nwC-pb-26i" firstAttribute="leading" secondItem="Eu9-Ph-bmi" secondAttribute="trailing" id="Gyi-Fc-7LK"/>
-                                                <constraint firstAttribute="trailing" secondItem="nwC-pb-26i" secondAttribute="trailing" constant="16" id="SQK-us-DCl"/>
+                                                <constraint firstAttribute="trailing" secondItem="nwC-pb-26i" secondAttribute="trailing" constant="48" id="SQK-us-DCl"/>
                                                 <constraint firstItem="Nl3-xN-3kh" firstAttribute="bottom" secondItem="9gW-Rf-fv7" secondAttribute="bottomMargin" id="YhJ-fh-P2C"/>
                                                 <constraint firstItem="Eu9-Ph-bmi" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="top" id="cKR-MF-N31"/>
                                                 <constraint firstItem="Eu9-Ph-bmi" firstAttribute="leading" secondItem="9gW-Rf-fv7" secondAttribute="leading" constant="8" id="fpZ-aQ-t5M"/>
                                                 <constraint firstItem="Nl3-xN-3kh" firstAttribute="leading" secondItem="Eu9-Ph-bmi" secondAttribute="trailing" id="gAk-rg-8PO"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Nl3-xN-3kh" secondAttribute="trailing" constant="16" id="ieG-oB-MeG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Nl3-xN-3kh" secondAttribute="trailing" constant="32" id="ieG-oB-MeG"/>
                                                 <constraint firstItem="nwC-pb-26i" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="top" id="msT-Fg-R4A"/>
+                                                <constraint firstAttribute="bottom" secondItem="JBj-db-a3J" secondAttribute="bottom" id="nXq-gk-h6g"/>
+                                                <constraint firstItem="JBj-db-a3J" firstAttribute="top" secondItem="9gW-Rf-fv7" secondAttribute="top" id="rwo-Ba-zXu"/>
+                                                <constraint firstItem="JBj-db-a3J" firstAttribute="leading" secondItem="Nl3-xN-3kh" secondAttribute="trailing" id="xSr-Wb-c6k"/>
+                                                <constraint firstAttribute="trailing" secondItem="JBj-db-a3J" secondAttribute="trailing" id="ztX-71-zpO"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="removeItemButton" destination="JBj-db-a3J" id="tvX-2m-mQa"/>
                                             <outlet property="todoItemCheckbox" destination="Eu9-Ph-bmi" id="J0p-7l-fq5"/>
                                             <outlet property="todoItemLabel" destination="Nl3-xN-3kh" id="tUx-aN-ETG"/>
                                             <outlet property="todoItemTextField" destination="nwC-pb-26i" id="Pih-LX-k8g"/>
@@ -187,6 +200,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="square" catalog="system" width="128" height="114"/>
+        <image name="square" catalog="system" width="64" height="56"/>
+        <image name="xmark.circle" catalog="system" width="64" height="60"/>
     </resources>
 </document>

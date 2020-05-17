@@ -13,6 +13,11 @@ class TodoListTableViewCell: UITableViewCell {
   @IBOutlet weak var todoItemTextField: UITextField!
   @IBOutlet weak var todoItemLabel: UILabel!
   @IBOutlet weak var todoItemCheckbox: UIImageView!
+  @IBOutlet weak var removeItemButton: UIButton!
+
+  @IBAction func removeItemButtonTapped(_ sender: Any) {
+    self.delegate?.didTapRemoveButton(sender: self)
+  }
 
   weak var delegate: TodoItemTableViewCellDelegate?
   
@@ -48,4 +53,5 @@ extension TodoListTableViewCell: UITextFieldDelegate {
 // MARK: Delegate Methods
 protocol TodoItemTableViewCellDelegate: AnyObject {
   func descriptionSetForTodoItem(sender: TodoListTableViewCell, description: String)
+  func didTapRemoveButton(sender: TodoListTableViewCell)
 }

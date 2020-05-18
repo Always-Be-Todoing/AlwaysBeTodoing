@@ -165,7 +165,6 @@ extension TodoListViewController {
   }
 
   fileprivate func deleteItem(_ indexPath: IndexPath, _ tableView: UITableView) {
-    print("Item deleted")
     todoItems.remove(at: indexPath.row)
     self.delegate?.didUpdateTodoItems(sender: self, items: todoItems)
     tableView.deleteRows(at: [indexPath], with: .fade)
